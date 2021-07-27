@@ -2,8 +2,6 @@ const enterCoinModel = require('../model/enterCoin');
 
 
 const enterCoin = (req, res, next)=>{
-
-    console.log("request body: " , req.body);
     const symbol = req.body.symbol;
     const threshold = req.body.threshold
     const coin = new enterCoinModel.Coin(symbol, threshold);

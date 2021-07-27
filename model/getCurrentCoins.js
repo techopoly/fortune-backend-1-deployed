@@ -8,11 +8,9 @@ const fetchCurrentCoins = () => {
 
     return db.collection('currentCoins').find().toArray()
         .then((result) => {
-            console.log('Fetched all currentCoins: ', result);
             return result;
         })
         .catch((err) => {
-            console.log('Error in fetching currentCoins: ', err);
         })
 }
 

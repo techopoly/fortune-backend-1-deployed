@@ -11,7 +11,6 @@ const getCurrentPrice = () => {
 }
 
 const removeInterval = (num) => {
-    console.log(`interval reference index: ${num} `, intRef[num])
     clearInterval(intRef[num])
 }
 

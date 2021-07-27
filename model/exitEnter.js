@@ -9,13 +9,13 @@ const exitEnter = (_id) => {
     return db.collection('enterCoins').find({ _id: new mongodb.ObjectID(_id) }).next()
         .then(response => {
             const index = response.intIndex;
-            console.log('index: ', index);
+         
             enterCoin.removeInterval(index);
             deleteCurrentCoin(_id);
             return response;
         })
         .catch(err => {
-            console.log(err)
+            
         })
 }
 
@@ -25,7 +25,6 @@ const deleteCurrentCoin = (coin_id) => {
         coin_id : new mongodb.ObjectID(coin_id)
     })
     .then((result)=>{
-        console.log('Deleted current coin in currentCoins collection')
     })
 }
 

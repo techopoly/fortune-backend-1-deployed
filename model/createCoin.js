@@ -18,7 +18,6 @@ const getTest = () => {
 
 
 const removeInterval = (num) => {
-    console.log(`interval reference index: ${num} `, intRef[num]);
     clearInterval(intRef[num])
 }
 
@@ -42,23 +41,19 @@ class Coin {
                 this.startPrice = response.data.price;
                 return db.collection('coins').insertOne(this)
                     .then((result) => {
-                        //console.log(result)
+                        
                         return this.insertCurrentCoin(this._id)
                             .then(response => {
-                                //console.log(response);
                                 return response; // this one is actually returned when you call save() in controller. not sure yet
                             })
                             .catch(err => {
-                                console.log(err);
                             })
                     })
                     .catch(err => {
-                        console.log(err)
                     })
                 
             })
             .catch(err => {
-                console.log('COULD NOT SAVE START PRICE');
             })
     }
 
@@ -67,11 +62,9 @@ class Coin {
 
         return db.collection('currentCoins').insertOne({ coin_id: _id })
             .then(result => {
-                console.log(_id, ' INSERTED IN CURRENT COIN');
                 return result;
             })
             .catch(err => {
-                console.log('ERROR IN insertCurrentCoin', err)
             }
             )
     }
@@ -121,18 +114,18 @@ class Coin {
                 .then((response) => {
                     currentPrice = response.data.price;
                     if (currentPrice < threshold * peak) {
-                        console.log("DANGER");
+                       
                         p1.send(msg, function (err, result) {
                             if (err) {
                                 throw err
                             }
-                            console.log(result)
+                           
                         });
                         p2.send(msg, function (err, result) {
                             if (err) {
                                 throw err
                             }
-                            console.log(result)
+                            
                         });
 
                         // clearInterval(this.interval_1);
@@ -142,23 +135,19 @@ class Coin {
                     }
                     if (currentPrice > peak) {
                         peak = currentPrice
-                        console.log("peak: " + peak);
+                        
                     }
-                    console.log(this.symbol, "_currentPrice: " + currentPrice);
                     return response
                 })
                 .catch(
                     (err) => {
-                        console.log('ERROR GETTING COIN PRICE');
-                        console.log(err)
-                        // console.log(err)
+
                     }
                 )
         }
 
         let lenght = intRef.length;  // stores the lenght at the moment when this function(startProcess) was first executed
         this.intIndex = lenght;
-        console.log(this.intIndex);
         intRef[this.intIndex] = setInterval(fetchPrice, 1000);
         this.processRunning = true;
     }
